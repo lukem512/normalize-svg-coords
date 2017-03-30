@@ -31,6 +31,10 @@ The `viewBox` parameter may be passed as a `string` of 4 integers in the order
 `xmin ymin xmax ymax` with spaces (` `) or commas (`,`) as a delimiter. The
 `viewBox` may also be passed as an `object`.
 
+## Related Modules
+
+[extract-svg-viewbox](https://github.com/lukem512/extract-svg-viewbox)
+
 ## License
 
 MIT © Luke Mitchell
