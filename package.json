@@ -1,5 +1,5 @@
 {
-  "name": "normalize-svg-path",
+  "name": "normalize-svg-coords",
   "version": "1.0.0",
   "description": "Normalize coordinates in an SVG path to a specified range",
   "main": "index.js",

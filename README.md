@@ -1,19 +1,19 @@
-# normalize-svg-path
+# normalize-svg-coords
 
-[![Build Status](https://travis-ci.org/lukem512/normalize-svg-path.svg?branch=master)](https://travis-ci.org/lukem512/normalize-svg-path)
+[![Build Status](https://travis-ci.org/lukem512/normalize-svg-coords.svg?branch=master)](https://travis-ci.org/lukem512/normalize-svg-coords)
 
 Normalize coordinates in an SVG path to a specified range.
 
 ## Install
 
 ```
-npm i --save normalize-svg-path
+npm i --save normalize-svg-coords
 ```
 
 ## Usage
 
 ```js
-const normalize = require('normalize-svg-path');
+const normalize = require('normalize-svg-coords');
 
 const normalizedPath = normalize({
   viewBox: '0 0 400 460',
