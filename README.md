@@ -1,5 +1,7 @@
 # normalize-svg-path
 
+[![Build Status](https://travis-ci.org/lukem512/normalize-svg-path.svg?branch=master)](https://travis-ci.org/lukem512/normalize-svg-path)
+
 Normalize coordinates in an SVG path to a specified range.
 
 ## Install
