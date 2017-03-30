@@ -1,6 +1,6 @@
 # normalize-svg-coords
 
-[![Build Status](https://travis-ci.org/lukem512/normalize-svg-coords.svg?branch=master)](https://travis-ci.org/lukem512/normalize-svg-coords) ![Dependency Status](https://david-dm.org/lukem512/normalize-svg-coords.svg) [![npm](https://img.shields.io/npm/l/pronounceable.svg)](https://www.npmjs.com/package/normalize-svg-coords) [![npm](https://img.shields.io/npm/v/pronounceable.svg)](https://www.npmjs.com/package/normalize-svg-coords) [![npm](https://img.shields.io/npm/dm/pronounceable.svg)](https://www.npmjs.com/package/normalize-svg-coords)
+[![Build Status](https://travis-ci.org/lukem512/normalize-svg-coords.svg?branch=master)](https://travis-ci.org/lukem512/normalize-svg-coords) ![Dependency Status](https://david-dm.org/lukem512/normalize-svg-coords.svg) [![npm](https://img.shields.io/npm/l/normalize-svg-coords.svg)](https://www.npmjs.com/package/normalize-svg-coords) [![npm](https://img.shields.io/npm/v/normalize-svg-coords.svg)](https://www.npmjs.com/package/normalize-svg-coords) [![npm](https://img.shields.io/npm/dm/normalize-svg-coords.svg)](https://www.npmjs.com/package/normalize-svg-coords)
 
 Normalize coordinates in an SVG path to a specified range.
 
