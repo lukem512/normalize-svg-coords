@@ -21,7 +21,7 @@ const INSTRUCTIONS = [
 // The viewBox string may be specified using spaces or commas as delimiters.
 // The order is: xmin, ymin, xmax, ymax
 const extractViewBox = function(viewBoxStr) {
-  const parts = viewBoxStr.split(/\s*,\s*/)
+  const parts = viewBoxStr.split(/\s*,\s*|\s+/)
   return [
     parseFloat(parts[0]),
     parseFloat(parts[1]),
@@ -62,9 +62,6 @@ const normalize = function({viewBox, path, min = 0, max = 1, precision = 4}) {
     }
 
     const remaining = feature.slice(1);
-    if (remaining.length % 2 !== 0) {
-      throw Error(`Path does not contain an even number of coordinates`)
-    }
 
     // Normalize the values of each coordinate. X coordinates are at even
     // positions whilst y coordinates are at odd.
