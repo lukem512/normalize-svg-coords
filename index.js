@@ -21,13 +21,13 @@ const INSTRUCTIONS = [
 // The viewBox string may be specified using spaces or commas as delimiters.
 // The order is: xmin, ymin, xmax, ymax
 const extractViewBox = function(viewBoxStr) {
-  const parts = viewBoxStr.replace(',', ' ').split(' ')
-  return {
-    xmin: parts[0],
-    ymin: parts[1],
-    xmax: parts[2],
-    ymax: parts[3]
-  }
+  const parts = viewBoxStr.split(/\s*,\s*/)
+  return [
+    parseFloat(parts[0]),
+    parseFloat(parts[1]),
+    parseFloat(parts[2]),
+    parseFloat(parts[3])
+  ]
 }
 
 // Normalize an SVG path to between a specified min and max.
@@ -41,6 +41,9 @@ const normalize = function({viewBox, path, min = 0, max = 1, precision = 4}) {
 
     case 'object':
       rect = viewBox
+      if (!Array.isArray(rect)) {
+        rect = [rect.xmin, rect.ymin, rect.xmax, rect.ymax]
+      }
       break
 
     case 'undefined':
@@ -72,8 +75,8 @@ const normalize = function({viewBox, path, min = 0, max = 1, precision = 4}) {
       }
 
       const even = i % 2 === 0
-      const max = even ? rect.xmax : rect.ymax
-      const min = even ? rect.xmin : rect.ymin
+      const max = even ? rect[2] : rect[3]
+      const min = even ? rect[0] : rect[1]
       return ((float - min) / (max - min)).toFixed(precision)
     })
 
