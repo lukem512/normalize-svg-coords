@@ -29,7 +29,7 @@ specified range whilst maintaining the shape.
 
 The `viewBox` parameter may be passed as a `string` of 4 integers in the order
 `xmin ymin xmax ymax` with spaces (` `) or commas (`,`) as a delimiter. The
-`viewBox` may also be passed as an `object`.
+`viewBox` may also be passed as an `object` or an `array`.
 
 ## Related Modules
 
