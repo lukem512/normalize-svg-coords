@@ -64,7 +64,7 @@ const normalize = function({viewBox, path, min = 0, max = 1, precision = 4}) {
     const remaining = feature.slice(1);
 
     // Normalize the values of each coordinate. X coordinates are at even
-    // positions whilst y coordinates are at odd.
+    // positions whilst Y coordinates are at odd.
     const coords = remaining.map((item, i) => {
       const float = parseFloat(item)
       if (isNaN(float)) {
@@ -72,13 +72,21 @@ const normalize = function({viewBox, path, min = 0, max = 1, precision = 4}) {
       }
 
       const even = i % 2 === 0
-      const max = even ? rect[2] : rect[3]
-      const min = even ? rect[0] : rect[1]
-      return ((float - min) / (max - min)).toFixed(precision)
+      const _max = even ? rect[2] : rect[3]
+      const _min = even ? rect[0] : rect[1]
+      return scale(max, min, _max, _min, float).toFixed(precision);
     })
 
     return instruction + coords.join(' ')
   }).join('')
+}
+
+// Scale a value in range [rangeMin, rangeMax] to the scale
+// [scaleMin, scaleMax].
+// See https://stackoverflow.com/a/5295202/6413814
+const scale = function(scaleMax, scaleMin, rangeMax, rangeMin, x) {
+  const scalar = scaleMax - scaleMin;
+  return (scalar * ((x - rangeMin) / (rangeMax - rangeMin))) + scaleMin;
 }
 
 module.exports = normalize;
