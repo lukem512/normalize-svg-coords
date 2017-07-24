@@ -37,7 +37,7 @@ The `viewBox` parameter may be passed as a `string` of 4 integers in the order
 Set the `asList` parameter to `true` to output the normalized path as a segmented list.
 
 ```js
-console.log(normalizedPath) // [['M', ['0.3772', '0.3677']], ['c', ['0.0277', '-0.0019', '0.0507', '-0.0154', '0.0611', '-0.0375']]]
+console.log(normalizedPath) // ['M', '0.3772', '0.3677'], ['c', '0.0277', '-0.0019', '0.0507', '-0.0154', '0.0611', '-0.0375']]
 ```
 
 ## Related Modules
