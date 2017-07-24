@@ -33,7 +33,7 @@ const extractViewBox = function(viewBoxStr) {
 
 // Normalize an SVG path to between a specified min and max.
 // Throws an error on invalid parameters.
-const normalize = function({viewBox, path, min = 0, max = 1, precision = 4}) {
+const normalize = function({viewBox, path, min = 0, max = 1, precision = 4, asList}) {
   let rect
   switch (typeof viewBox) {
     case 'string':
@@ -56,7 +56,7 @@ const normalize = function({viewBox, path, min = 0, max = 1, precision = 4}) {
       break
   }
 
-  return parse(path).map(feature => {
+  const normalized = parse(path).map(feature => {
     const instruction = feature[0];
     if (INSTRUCTIONS.indexOf(instruction) === -1) {
       throw Error(`Unknown instruction ${instruction} in path`)
@@ -78,8 +78,13 @@ const normalize = function({viewBox, path, min = 0, max = 1, precision = 4}) {
       return scale(max, min, oldMax, oldMin, float).toFixed(precision);
     })
 
+    // Return as segmented list?
+    if (asList) {
+      return [instruction, coords]
+    }
     return instruction + coords.join(' ')
-  }).join('')
+  })
+  return asList ? normalized : normalized.join('')
 }
 
 // Scale a value in range [oldMin, oldMax] to the scale

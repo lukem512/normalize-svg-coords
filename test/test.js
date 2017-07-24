@@ -35,6 +35,18 @@ describe('Normalize SVG path', function() {
     assert.equal(path, expected)
   })
 
+  it('should return a segmented list', function() {
+    const path = normalize({
+      viewBox: '0 0 400 460',
+      path: 'M150.883 169.12c11.06-.887 20.275-7.079 24.422-17.256',
+      min: 0,
+      max: 1,
+      asList: true
+    })
+    const expected = [['M', ['0.3772', '0.3677']], ['c', ['0.0277', '-0.0019', '0.0507', '-0.0154', '0.0611', '-0.0375']]]
+    assert.equal(path.toString(), expected.toString())
+  })
+
   it('should take any type of viewBox', function () {
     const path = 'M0 0H10V10Z';
     const expected = 'M0.0000 0.0000H1.0000V1.0000Z';
