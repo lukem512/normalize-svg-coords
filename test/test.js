@@ -36,6 +36,16 @@ describe('Normalize SVG path', function() {
     assert.equal(path, expected)
   })
 
+  it('should return a normalized elliptic arcs', function() {
+    const path = normalize({
+      path: 'M 10 10A 15 15 0 1 0 25 5Z',
+      min: 0,
+      max: 1
+    })
+    const expected = 'M0.1474 0.1616A0.3064 0.3232 0 1 0 0.6244 -0.0000Z'
+    assert.equal(path, expected)
+  })
+
   it('should return a segmented list', function() {
     const path = normalize({
       viewBox: '0 0 400 460',

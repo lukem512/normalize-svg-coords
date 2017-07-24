@@ -34,21 +34,21 @@ const extractViewBox = function(viewBoxStr) {
 // Normalize an SVG path to between a specified min and max.
 // Throws an error on invalid parameters.
 const normalize = function({viewBox, path, min = 0, max = 1, precision = 4, asList}) {
-  let rect
+  let bounds
   switch (typeof viewBox) {
     case 'string':
-      rect = extractViewBox(viewBox)
+      bounds = extractViewBox(viewBox)
       break
 
     case 'object':
-      rect = viewBox
-      if (!Array.isArray(rect)) {
-        rect = [rect.xmin, rect.ymin, rect.xmax, rect.ymax]
+      bounds = viewBox
+      if (!Array.isArray(bounds)) {
+        bounds = [bounds.xmin, bounds.ymin, bounds.xmax, bounds.ymax]
       }
       break
 
     case 'undefined':
-      rect = getBounds(path)
+      bounds = getBounds(path)
       break
 
     default:
@@ -57,26 +57,49 @@ const normalize = function({viewBox, path, min = 0, max = 1, precision = 4, asLi
   }
 
   const normalized = parse(path).map(feature => {
-    const instruction = feature[0];
+    const instruction = feature[0]
     if (INSTRUCTIONS.indexOf(instruction) === -1) {
       throw Error(`Unknown instruction ${instruction} in path`)
     }
 
-    const remaining = feature.slice(1);
+    const remaining = feature.slice(1)
 
-    // Normalize the values of each coordinate. X coordinates are at even
-    // positions whilst Y coordinates are at odd.
-    const coords = remaining.map((item, i) => {
-      const float = parseFloat(item)
-      if (isNaN(float)) {
-        throw Error(`Invalid coordinate ${item} in path`)
+    // Transform into IR
+    let intermediates = [];
+    if (instruction === 'A' || instruction === 'a') {
+      const [rx, ry, xrot, largearc, sweep, x, y] = remaining
+      intermediates = [
+        {value: rx, x: true},
+        {value: ry},
+        {value: xrot, skip: true},
+        {value: largearc, skip: true},
+        {value: sweep, skip: true},
+        {value: x, x: true},
+        {value: y}
+      ]
+    } else {
+      // X coordinates are at even positions whilst Y coordinates are at odd.
+      intermediates = remaining.map((value, i) => ({
+        value,
+        x: i % 2 === 0,
+      }))
+    }
+
+    // Normalize the values of each coordinate.
+    const coords = intermediates.reduce((processed, {value, skip, x}) => {
+      if (skip) {
+        return processed.concat(value)
       }
 
-      const even = i % 2 === 0
-      const oldMax = even ? rect[2] : rect[3]
-      const oldMin = even ? rect[0] : rect[1]
-      return scale(max, min, oldMax, oldMin, float).toFixed(precision);
-    })
+      const norm = normalizeCoord({
+        value,
+        min,
+        max,
+        bounds,
+        x
+      }).toFixed(precision)
+      return processed.concat(norm)
+    }, [])
 
     // Return as segmented list?
     if (asList) {
@@ -86,6 +109,16 @@ const normalize = function({viewBox, path, min = 0, max = 1, precision = 4, asLi
     return instruction + coords.join(' ')
   })
   return asList ? normalized : normalized.join('')
+}
+
+const normalizeCoord = function({value, x, bounds, min, max}) {
+  const float = parseFloat(value)
+  if (isNaN(float)) {
+    throw Error(`Invalid coordinate ${value} in path`)
+  }
+  const oldMax = x ? bounds[2] : bounds[3]
+  const oldMin = x ? bounds[0] : bounds[1]
+  return scale(max, min, oldMax, oldMin, float)
 }
 
 // Scale a value in range [oldMin, oldMax] to the scale
