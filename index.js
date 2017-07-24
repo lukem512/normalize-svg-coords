@@ -1,6 +1,7 @@
 'use strict'
 
 const parse = require('parse-svg-path')
+const getBounds = require('svg-path-bounds')
 
 // Taken from the SVG specification: https://www.w3.org/TR/SVG/paths.html
 // Uppercase instructions refer to absolute coordinates whilst lowercase
@@ -47,7 +48,7 @@ const normalize = function({viewBox, path, min = 0, max = 1, precision = 4}) {
       break
 
     case 'undefined':
-      throw Error('No viewBox specified')
+      rect = getBounds(path)
       break
 
     default:

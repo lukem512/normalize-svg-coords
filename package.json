@@ -17,7 +17,8 @@
   "author": "Luke Mitchell",
   "license": "MIT",
   "dependencies": {
-    "parse-svg-path": "^0.1.2"
+    "parse-svg-path": "^0.1.2",
+    "svg-path-bounds": "^1.0.0"
   },
   "devDependencies": {
     "mocha": "^3.2.0"
