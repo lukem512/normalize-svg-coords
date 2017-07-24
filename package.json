@@ -21,6 +21,7 @@
     "svg-path-bounds": "^1.0.0"
   },
   "devDependencies": {
+    "lodash.isequal": "^4.5.0",
     "mocha": "^3.2.0"
   },
   "directories": {

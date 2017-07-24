@@ -1,6 +1,7 @@
 'use strict'
 
 const assert = require('assert')
+const isEqual = require('lodash.isEqual');
 const normalize = require('../index')
 
 describe('Normalize SVG path', function() {
@@ -43,8 +44,8 @@ describe('Normalize SVG path', function() {
       max: 1,
       asList: true
     })
-    const expected = [['M', ['0.3772', '0.3677']], ['c', ['0.0277', '-0.0019', '0.0507', '-0.0154', '0.0611', '-0.0375']]]
-    assert.equal(path.toString(), expected.toString())
+    const expected = [['M', '0.3772', '0.3677'], ['c', '0.0277', '-0.0019', '0.0507', '-0.0154', '0.0611', '-0.0375']]
+    assert(isEqual(path, expected))
   })
 
   it('should take any type of viewBox', function () {

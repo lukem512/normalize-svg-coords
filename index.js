@@ -80,7 +80,8 @@ const normalize = function({viewBox, path, min = 0, max = 1, precision = 4, asLi
 
     // Return as segmented list?
     if (asList) {
-      return [instruction, coords]
+      coords.unshift(instruction)
+      return coords
     }
     return instruction + coords.join(' ')
   })
