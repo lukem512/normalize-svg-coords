@@ -1,7 +1,7 @@
 'use strict'
 
 const assert = require('assert')
-const isEqual = require('lodash.isEqual');
+const isEqual = require('lodash.isequal');
 const normalize = require('../index')
 
 describe('Normalize SVG path', function() {
