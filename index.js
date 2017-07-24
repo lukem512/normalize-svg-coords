@@ -72,21 +72,21 @@ const normalize = function({viewBox, path, min = 0, max = 1, precision = 4}) {
       }
 
       const even = i % 2 === 0
-      const _max = even ? rect[2] : rect[3]
-      const _min = even ? rect[0] : rect[1]
-      return scale(max, min, _max, _min, float).toFixed(precision);
+      const oldMax = even ? rect[2] : rect[3]
+      const oldMin = even ? rect[0] : rect[1]
+      return scale(max, min, oldMax, oldMin, float).toFixed(precision);
     })
 
     return instruction + coords.join(' ')
   }).join('')
 }
 
-// Scale a value in range [rangeMin, rangeMax] to the scale
-// [scaleMin, scaleMax].
+// Scale a value in range [oldMin, oldMax] to the scale
+// [newMin, newMax].
 // See https://stackoverflow.com/a/5295202/6413814
-const scale = function(scaleMax, scaleMin, rangeMax, rangeMin, x) {
-  const scalar = scaleMax - scaleMin;
-  return (scalar * ((x - rangeMin) / (rangeMax - rangeMin))) + scaleMin;
+const scale = function(newMax, newMin, oldMax, oldMin, x) {
+  const scalar = newMax - newMin
+  return ((scalar * (x - oldMin)) / (oldMax - oldMin)) + newMin
 }
 
 module.exports = normalize;
