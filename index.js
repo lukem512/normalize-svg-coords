@@ -77,6 +77,12 @@ const normalize = function({viewBox, path, min = 0, max = 1, precision = 4, asLi
         {value: x, x: true},
         {value: y}
       ]
+    } else if (instruction === 'H' || instruction === 'h') {
+      const [xplus] = remaining
+      intermediates = [{value: xplus, x: true}]
+    } else if (instruction === 'V' || instruction === 'v') {
+      const [yplus] = remaining
+      intermediates = [{value: yplus}]
     } else {
       // X coordinates are at even positions whilst Y coordinates are at odd.
       intermediates = remaining.map((value, i) => ({

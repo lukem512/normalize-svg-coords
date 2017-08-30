@@ -112,4 +112,26 @@ describe('Normalize SVG path', function() {
     const expected = 'M0.0000 1.8750H1.8750V3.4640H0.9380V5.3380H1.8750V6.8750H0.0000V8.7500H5.6250V6.8750H3.7500V5.3380H4.6610V3.4640H3.7500V1.8750H5.6250V0.0000H0.0000ZM15.0000 3.1250V1.2500H9.3750V3.1250H11.2500V4.6880H10.3260V6.5630H11.2500V8.1250H9.3750V10.0000H15.0000V8.1250H13.1250V6.5630H14.0490V4.6880H13.1250V3.1250Z'
     assert.equal(path, expected)
   })
+
+  it('should correctly scale horizontal lineto commands', function () {
+    const path = normalize({
+      path: 'M0 0H100',
+      viewBox: [0, 0, 100, 100],
+      min: 0,
+      max: 1
+    })
+    const expected = 'M0.0000 0.0000H1.0000'
+    assert.equal(path, expected)
+  })
+
+  it('should correctly scale vertical lineto commands', function () {
+    const path = normalize({
+      path: 'M0 0V100',
+      viewBox: [0, 0, 100, 100],
+      min: 0,
+      max: 1
+    })
+    const expected = 'M0.0000 0.0000V1.0000'
+    assert.equal(path, expected)
+  })
 })
