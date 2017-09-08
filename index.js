@@ -19,6 +19,11 @@ const INSTRUCTIONS = [
   'Z', 'z'
 ]
 
+const XMIN = 0
+const YMIN = 1
+const XMAX = 2
+const YMAX = 3
+
 // The viewBox string may be specified using spaces or commas as delimiters.
 // The order is: xmin, ymin, xmax, ymax
 const extractViewBox = function(viewBoxStr) {
@@ -122,8 +127,8 @@ const normalizeCoord = function({value, x, bounds, min, max}) {
   if (isNaN(float)) {
     throw Error(`Invalid coordinate ${value} in path`)
   }
-  const oldMax = x ? bounds[2] : bounds[3]
-  const oldMin = x ? bounds[0] : bounds[1]
+  const oldMax = x ? bounds[XMAX] : bounds[YMAX]
+  const oldMin = x ? bounds[XMIN] : bounds[YMIN]
   return scale(max, min, oldMax, oldMin, float)
 }
 
