@@ -134,4 +134,14 @@ describe('Normalize SVG path', function() {
     const expected = 'M0.0000 0.0000V1.0000'
     assert.equal(path, expected)
   })
+
+  it('should correctly scale', function() {
+    const path = normalize({
+      path: 'M 175 200 V 300',
+      min: 0,
+      max: 1,
+    });
+    const expected = 'M0.0000 0.0000V1.0000'
+    assert.equal(path, expected);
+  })
 })

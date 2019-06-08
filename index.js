@@ -137,7 +137,11 @@ const normalizeCoord = function({value, x, bounds, min, max}) {
 // See https://stackoverflow.com/a/5295202/6413814
 const scale = function(newMax, newMin, oldMax, oldMin, x) {
   const scalar = newMax - newMin
-  return ((scalar * (x - oldMin)) / (oldMax - oldMin)) + newMin
+  const diff = oldMax - oldMin
+  if (diff == 0) {
+    return newMin
+  }
+  return ((scalar * (x - oldMin)) / diff) + newMin
 }
 
 module.exports = normalize;
