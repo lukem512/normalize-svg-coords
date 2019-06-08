@@ -41,7 +41,7 @@ describe('Normalize SVG path', function() {
       min: 0,
       max: 1
     })
-    const expected = 'M0.1474 0.1616A0.3064 0.3232 0 1 0 0.6244 -0.0000Z'
+    const expected = 'M0.1705 0.1590A0.3248 0.3180 0 1 0 0.6333 -0.0000Z'
     assert.equal(path, expected)
   })
 
